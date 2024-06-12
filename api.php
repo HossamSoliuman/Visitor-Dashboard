@@ -4,12 +4,11 @@ require 'db.php';
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $apiKey = '47MzVlvfaUdNUDiOFlvswyffGMZW8aPeUW2oLF1NW1C92Ibfbe';
+    require 'key.php';
     $key = $_POST['key'] ?? '';
     $visit_time = $_POST['visit_time'] ?? date('Y-m-d H:i:s');
 
     if ($key === $apiKey) {
-        // Validate date format if visit_time is provided
         if (isset($_POST['visit_time'])) {
             $visit_time = date('Y-m-d H:i:s', strtotime($visit_time));
         }
@@ -29,4 +28,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(["status" => "error", "message" => "Invalid request method"]);
 }
-?>

@@ -250,7 +250,6 @@ $rushHourByDayOfMonth = array_map(function ($hours) {
             }
         });
 
-        // Chart for day of the week visits
         const dayOfWeekChartCtx = document.getElementById('dayOfWeekChart').getContext('2d');
         new Chart(dayOfWeekChartCtx, {
             type: 'bar',
