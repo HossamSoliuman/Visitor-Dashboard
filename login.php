@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user &&$password== $user['password']) {
+    if ($user && $password == $user['password']) {
         $_SESSION['user_id'] = $user['id'];
         header("Location: index.php");
         exit();
