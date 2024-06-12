@@ -21,7 +21,7 @@ try {
     // Insert default user if not exists
     $default_username = 'admin';
     $default_password = 'password';
-    $stmt = $pdo->prepare("INSERT OR IGNORE INTO users (id, username, password) VALUES (1, :username, :password)");
+    $stmt = $pdo->prepare("INSERT OR IGNORE INTO users (id, username, password) VALUES (5, :username, :password)");
     $stmt->bindValue(':username', $default_username, PDO::PARAM_STR);
     $stmt->bindValue(':password', $default_password, PDO::PARAM_STR);
     $stmt->execute();

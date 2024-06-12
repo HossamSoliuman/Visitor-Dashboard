@@ -7,12 +7,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $stmt = $db->prepare("SELECT id, password FROM users WHERE username = :username");
-    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
-    $result = $stmt->execute();
-    $user = $result->fetchArray(SQLITE3_ASSOC);
+    $stmt = $pdo->prepare("SELECT id, password FROM users WHERE username = :username");
+    $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user && $user['password'] === $password) {
+    if ($user &&$password== $user['password']) {
         $_SESSION['user_id'] = $user['id'];
         header("Location: index.php");
         exit();
