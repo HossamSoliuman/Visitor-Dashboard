@@ -4,6 +4,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+
 require 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_credentials'])) {
@@ -11,19 +12,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_credentials']))
     $new_password = $_POST['password'];
     $user_id = $_SESSION['user_id'];
 
-    $stmt = $pdo->prepare("UPDATE users SET username = :username, password = :password WHERE id = :id");
-    $stmt->bindValue(':username', $new_username, SQLITE3_TEXT);
-    $stmt->bindValue(':password', $new_password, SQLITE3_TEXT);
-    $stmt->bindValue(':id', $user_id, SQLITE3_INTEGER);
+    try {
+        $stmt = $pdo->prepare("UPDATE users SET username = :username, password = :password WHERE id = :id");
+        $stmt->bindValue(':username', $new_username, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $new_password, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $user_id, PDO::PARAM_INT);
 
-    if ($stmt->execute()) {
-        $success = "Credentials updated successfully!";
-    } else {
-        $error = "Failed to update credentials!";
+        if ($stmt->execute()) {
+            $success = "Credentials updated successfully!";
+        } else {
+            $error = "Failed to update credentials!";
+        }
+    } catch (PDOException $e) {
+        $error = "Error: " . $e->getMessage();
     }
 }
 ?>
-
 
 <?php
 $currentMonthStart = date('Y-m-01 00:00:00');
