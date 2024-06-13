@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_credentials']))
     $new_password = $_POST['password'];
     $user_id = $_SESSION['user_id'];
 
-    $stmt = $db->prepare("UPDATE users SET username = :username, password = :password WHERE id = :id");
+    $stmt = $pdo->prepare("UPDATE users SET username = :username, password = :password WHERE id = :id");
     $stmt->bindValue(':username', $new_username, SQLITE3_TEXT);
     $stmt->bindValue(':password', $new_password, SQLITE3_TEXT);
     $stmt->bindValue(':id', $user_id, SQLITE3_INTEGER);
