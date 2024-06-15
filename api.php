@@ -3,6 +3,8 @@ require 'db.php';
 
 header('Content-Type: application/json');
 
+date_default_timezone_set('Asia/Riyadh');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require 'key.php';
     $key = $_POST['key'] ?? '';
